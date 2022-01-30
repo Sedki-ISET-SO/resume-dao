@@ -1,0 +1,107 @@
+{% block title %}{% endblock %}
+
+{% block body %}
+	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+	<style>
+		body {
+			text-align: center;
+			padding: 40px 0;
+			background: #EBF0F5;
+		}
+		h1 {
+			color: #88B04B;
+			font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+			font-weight: 900;
+			font-size: 40px;
+			margin-bottom: 10px;
+		}
+		p {
+			color: #404F5E;
+			font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+			font-size: 20px;
+			margin: 0;
+		}
+		h6 {
+			color: #404F5E;
+			font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
+		}
+		i {
+			color: #9ABC66;
+			font-size: 100px;
+			line-height: 200px;
+			margin-left: -15px;
+		}
+		.card {
+			background: white;
+			padding: 60px;
+			border-radius: 4px;
+			box-shadow: 0 2px 3px #C8D0D8;
+			display: inline-block;
+			margin: 0 auto;
+		}
+	</style>
+	<style>
+		.button {
+			display: flex;
+			overflow: hidden;
+			margin: 10px;
+			padding: 12px;
+			cursor: pointer;
+			-webkit-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
+			transition: all 150ms linear;
+			text-align: center;
+			white-space: nowrap;
+			text-decoration: none !important;
+			text-transform: none;
+			text-transform: capitalize;
+			color: #fff;
+			border: 0 none;
+			border-radius: var(--borderRadius);
+			font-size: 13px;
+            margin: 0 auto;
+			font-weight: 500;
+			line-height: 1.3;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			justify-content: center;
+			align-items: center;
+			flex: 0 0 160px;
+			box-shadow: 2px 5px 10px var(--color-smoke);
+		}
+		.button:hover {
+			transition: all 150ms linear;
+			opacity: 0.85;
+		}
+		.button:active {
+			transition: all 150ms linear;
+			opacity: 0.75;
+		}
+		.button:focus {
+			outline: 1px dotted #959595;
+			outline-offset: -4px;
+		}
+		.button.-dark {
+			color: #fff;
+			background: #009688;
+            border-radius: 19px;
+		}
+		.button.-dark:focus {
+			outline: 1px dotted white;
+			outline-offset: -4px;
+		}
+	</style>
+	<div class="card">
+		<div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
+			<i class="checkmark">✓</i>
+		</div>
+		<h1>Success</h1>
+		<p>We received your booking request.<br/>
+			the landlord will be in touch with you shortly!<br/><h6>© 2022 Rental Book LLC, Rental Book App</h6>
+		</p>
+		<button class='button -dark center' onclick="window.location='http://127.0.0.1:8000/';">check more listings</button>
+	</div>
+{% endblock %}

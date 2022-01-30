@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h2>Upload A PDF Resume File</h2>
+
+    {{ form_start(form) }}
+                
+        <br>
+        <label for="files">File Upload Zone</label>
+        <br /><br />
+        <ul class="files" 
+            data-index="{{ form.files|length > 0 ? form.files|last.vars.name + 1 : 0 }}" 
+            data-prototype="{{ form_widget(form.files.vars.prototype)|e('html_attr') }}"
+            style="list-style-type:none;"
+        >
+        </ul>
+        <br>
+        
+        {{ form_widget(form.enregistrer) }}
+    {{ form_end(form) }} 
+
+    <script>
+        var times = 0;
+        const addTagLinkTwo = document.createElement('button')
+        addTagLinkTwo.classList.add('add_tag_list_2')
+        addTagLinkTwo.classList.add('btn')
+        addTagLinkTwo.classList.add('btn-info')
+        addTagLinkTwo.innerText = 'Upload New PDF Resume File'
+        addTagLinkTwo.dataset.collectionHolderClass = 'files'
+        const newLinkLiTwo = document.createElement('li').append(addTagLinkTwo)
+        const collectionHolderTwo = document.querySelector('ul.files')
+        collectionHolderTwo.appendChild(addTagLinkTwo)
+        const addFormToCollectionTwo = (e) => {
+            e.preventDefault();
+            times++;
+
+            if(times < 2) {
+                const collectionHolderTwo = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+                const item = document.createElement('li');
+                item.innerHTML = collectionHolderTwo
+                    .dataset
+                    .prototype
+                    .replace(
+                    /__name__/g,
+                    collectionHolderTwo.dataset.index
+                    );
+                collectionHolderTwo.appendChild(item);
+                collectionHolderTwo.dataset.index++;
+            }
+        }
+        if(times < 2) {
+            addTagLinkTwo.addEventListener("click", addFormToCollectionTwo)
+        }
+    </script>
+
+    <style>
+        .add_tag_list_one {
+            margin-bottom: 15px;
+        }
+    </style>
+{% endblock %}

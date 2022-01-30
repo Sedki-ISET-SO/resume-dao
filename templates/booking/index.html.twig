@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My watchlist!{% endblock %}
+
+{% block body %}
+    <section>
+        <h2>My watchlist!</h2>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr> 
+                    <td>Listing</td>
+                    <td>Price/Night</td>
+                </tr>
+            </thead>
+            <tbody>
+            {% for listing in booking.listings %}
+                <tr>
+                    <td>{{ listing.name|capitalize }}</td>
+                    <td>{{ listing.price/100 }} $</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td>booked from date</td>
+                <td>{{ booking.bookedFrom ? booking.bookedFrom|date('d-m-Y H:i') : 'Not Available' }}</td>
+            </tr>
+            <tr>
+                <td>booked until date</td>
+                <td>{{ booking.bookedUntil ? booking.bookedUntil|date('d-m-Y H:i') : 'Not Available' }}</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>{{ booking.total/100 }} $</td>
+            </tr>
+            </tbody>
+        </table>
+        <div>
+            <button id="checkout-button" class="btn btn-primary">Book now!</button>
+        </div>
+    </section>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const addTagLinkOne = document.getElementById("checkout-button");
+        const stripe = Stripe("pk_test_51KEJ74BVdOFdf8ljrBcVbeKswLdeRaseHXobmPpUr5RnXD6kHj7pDT3J8o7K5wB2qeVTNGuGoiLldGD5fyXI8T0D00Q47bH87E");
+        const addFormToCollectionOne = (e) => {
+            fetch("{{ path('stripe_create_session') }}", {
+                method: "POST",
+            })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (session) {
+                    return stripe.redirectToCheckout({ sessionId: session.id });
+                })
+                .then(function (result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                })
+                .catch(function (error) {
+                    console.error("Error:", error);
+                });
+        }
+        addTagLinkOne.addEventListener("click", addFormToCollectionOne)
+    </script>
+{% endblock %}
+
+{% block javascripts %}
+    
+{% endblock %}

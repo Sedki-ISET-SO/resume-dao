@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+{% block body %}
+    <h2>Shared Resumes By Other Users</h2>
+    {% for listing in listings %}
+        <div class="card my-3">
+            <div class="card-header">
+                Published on : {{listing.published|date('d/m/Y')}} at {{listing.published|date('H:i')}}
+                By : {{listing.user.firstname ~ " " ~ listing.user.lastname}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{listing.price}}</h5>
+                <p class="card-text">{{listing.description}}</p>
+                <a href="{{ path('single', {id: listing.id}) }}" class="btn btn-dark text-white">See more</a>
+                <button type="button" class="btn btn-dark">Book</button>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

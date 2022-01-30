@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h2>Post new listing picture:</h2>
+
+    {{ form_start(form) }}
+        {{ form_label(form.file) }}
+        {{ form_widget(form.file) }}
+        <br>
+        
+        {{ form_widget(form.enregistrer) }}
+    {{ form_end(form) }} 
+
+{% endblock %}

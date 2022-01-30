@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <h2>{{listing.name}}</h2>
+    <div class="card my-3">
+        <div class="card-header">
+            Published on : {{listing.published|date('d/m/Y')}} at {{listing.published|date('H:i')}}
+            By : {{listing.user.firstname ~ " " ~ listing.user.lastname}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{listing.price}}</h5>
+            <h6 class="card-title">{{listing.name}}</h6>
+            <p class="card-text">{{listing.description}}</p>
+            <ul class="listingAmenities">
+                {% for amenity in listing.listingAmenities %}
+                    {% if amenity.checked == true %}
+                        <li>provided amenities</li>
+                        <li>{{ amenity.name }}</li>
+                    {% elseif amenity.checked == false %}
+                        <li>not provided amenities</li>
+                        <li>{{ amenity.name }}</li>
+                    {% else %}
+                        <li>no amenities provided</li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <ul class="listingAvailabilities">
+                {% for availability in listing.listingAvailabilities %}
+                    <li>Available from:{{ availability.availableFrom ? availability.availableFrom|date('d-m-Y H:i') : 'Not Available' }}</li>
+                    <li>Available until:{{ availability.availableUntil ? availability.availableUntil|date('d-m-Y H:i') : 'Not Available' }}</li>
+                {% endfor %}
+            </ul>
+            <ul class="pictures">
+                {% for pic in listing.pictures %}
+                    <li><img src="/uploads/{{ pic.name }}" width="400" height="auto"/></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

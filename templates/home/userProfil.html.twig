@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<h2>Your Information</h2>
+	{{ form_start(form) }}
+
+	{% if is_granted('ROLE_COMPANY') %}
+		{{ form_widget(form.companyname) }}
+	{% else %}
+		{{ form_row(form.firstname) }}
+		{{ form_row(form.lastname) }}
+	{% endif %}
+
+	{{ form_row(form.email) }}
+
+	{{ form_end(form) }}
+{% endblock %}
