@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<style>
+#resume_enregistrer {
+    width: 100%;
+    background-color: green !important;
+}
+</style>
+<h2>Update Your Resume</h2>
+    <br /><br />
+    <h4>Update Your Resume By Adding New Fields In Different Sections</h4>
+
+	{{ form_start(form) }}
+
+	<br>
+	<label for="skills">Skills</label>
+    <br /><br />
+	<ul class="skills" data-index="{{ form.skills|length > 0 ? form.skills|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.skills.vars.prototype)|e('html_attr') }}" style="list-style-type:none;"></ul>
+	<br>
+
+    <br>
+	<label for="workExperiences">Work Experience</label>
+    <br /><br />
+	<ul class="workExperiences" data-index="{{ form.workExperiences|length > 0 ? form.workExperiences|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.workExperiences.vars.prototype)|e('html_attr') }}" style="list-style-type:none;"></ul>
+	<br>
+
+    <br>
+	<label for="educations">Education</label>
+    <br /><br />
+	<ul class="educations" data-index="{{ form.educations|length > 0 ? form.educations|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(form.educations.vars.prototype)|e('html_attr') }}" style="list-style-type:none;"></ul>
+	<br>
+
+	{{ form_widget(form.enregistrer) }}
+        <br /><br />
+
+    <h4>Update Your Resume By Editing Existing Fields In Different Sections</h4>
+    <br /><br />
+	{{ form_end(form) }}
+    <br /><br />
+    
+
+	<script>
+        const addTagLink = document.createElement('button')
+        addTagLink.classList.add('add_tag_list')
+        addTagLink.classList.add('btn-info')
+        addTagLink.classList.add('btn')
+        addTagLink.innerText = 'Add A New Skill'
+        addTagLink.dataset.collectionHolderClass = 'skills'
+        
+        const newLinkLi = document.createElement('li').append(addTagLink)
+        const collectionHolder = document.querySelector('ul.skills')
+        collectionHolder.appendChild(addTagLink)
+        const addFormToCollection = (e) => {
+            e.preventDefault();
+            const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const item = document.createElement('li');
+            item.innerHTML = collectionHolder
+                .dataset
+                .prototype
+                .replace(
+                /__name__/g,
+                collectionHolder.dataset.index
+                );
+            collectionHolder.appendChild(item);
+            collectionHolder.dataset.index++;
+        }
+        addTagLink.addEventListener("click", addFormToCollection)
+    </script>
+        
+    <script>
+        const addTagLinkOne = document.createElement('button')
+        addTagLinkOne.classList.add('add_tag_list_one')
+        addTagLinkOne.classList.add('btn')
+        addTagLinkOne.classList.add('btn-info')
+        addTagLinkOne.innerText = 'Add New Section In Your Work Expereince'
+        addTagLinkOne.dataset.collectionHolderClass = 'workExperiences'
+        const newLinkLiOne = document.createElement('li').append(addTagLinkOne)
+        const collectionHolderOne = document.querySelector('ul.workExperiences')
+        collectionHolderOne.appendChild(addTagLinkOne)
+        const addFormToCollectionOne = (e) => {
+            e.preventDefault();
+            const collectionHolderOne = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const item = document.createElement('li');
+            item.innerHTML = collectionHolderOne
+                .dataset
+                .prototype
+                .replace(
+                /__name__/g,
+                collectionHolderOne.dataset.index
+                );
+            collectionHolderOne.appendChild(item);
+            collectionHolderOne.dataset.index++;
+        }
+        addTagLinkOne.addEventListener("click", addFormToCollectionOne)
+    </script>
+
+    <script>
+        const addTagLinkTwo = document.createElement('button')
+        addTagLinkTwo.classList.add('add_tag_list_two')
+        addTagLinkTwo.classList.add('btn')
+        addTagLinkTwo.classList.add('btn-info')
+        addTagLinkTwo.innerText = 'Add New Section In Your Education'
+        addTagLinkTwo.dataset.collectionHolderClass = 'educations'
+        const newLinkLiTwo = document.createElement('li').append(addTagLinkTwo)
+        const collectionHolderTwo = document.querySelector('ul.educations')
+        collectionHolderTwo.appendChild(addTagLinkTwo)
+        const addFormToCollectionTwo = (e) => {
+            e.preventDefault();
+            const collectionHolderTwo = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
+            const item = document.createElement('li');
+            item.innerHTML = collectionHolderTwo
+                .dataset
+                .prototype
+                .replace(
+                /__name__/g,
+                collectionHolderTwo.dataset.index
+                );
+            collectionHolderTwo.appendChild(item);
+            collectionHolderTwo.dataset.index++;
+        }
+        addTagLinkTwo.addEventListener("click", addFormToCollectionTwo)
+    </script>
+
+	<style>
+		.add_tag_list {
+            margin-bottom: 15px;
+        }
+        .add_tag_list_one {
+            margin-bottom: 15px;
+        }
+        .add_tag_list_two {
+            margin-bottom: 15px;
+        }
+	</style>
+{% endblock %}
+

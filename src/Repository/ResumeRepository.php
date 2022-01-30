@@ -47,4 +47,26 @@ class ResumeRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getLastRow(): ?Resume
+    {
+        return $this->findOneBy([], ['id' => 'DESC']);
+    }
+
+    public function getLastId(): int
+    {
+        $lastRow = $this->getLastRow();
+        return $lastRow ? $lastRow->getId() : 0;
+    }
+
+    public function getSingleResume(int $id) {
+        return $this->createQueryBuilder('r')
+            ->innerJoin('r.user', 'u')
+            ->addSelect('u')
+            ->where('r.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 }

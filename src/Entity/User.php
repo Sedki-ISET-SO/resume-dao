@@ -76,14 +76,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $valid;
 
     /**
-     * @ORM\OneToOne(targetEntity=Resume::class, cascade={"persist", "remove"})
-     */
-    private $resume;
-
-    /**
      * @ORM\OneToMany(targetEntity=PDF::class, mappedBy="candidate", orphanRemoval=true)
      */
     private $pDFs;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $phonenumber;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $path;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $secondpath;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Resume::class, mappedBy="user")
+     */
+    private $resumes;
 
     public function __construct()
     {
@@ -92,6 +107,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->bookings = new ArrayCollection();
         $this->files = new ArrayCollection();
         $this->pDFs = new ArrayCollection();
+        $this->resumes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -321,18 +337,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getResume(): ?Resume
-    {
-        return $this->resume;
-    }
-
-    public function setResume(?Resume $resume): self
-    {
-        $this->resume = $resume;
-
-        return $this;
-    }
-
     /**
      * @return Collection|PDF[]
      */
@@ -357,6 +361,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($pDF->getCandidate() === $this) {
                 $pDF->setCandidate(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPhonenumber(): ?string
+    {
+        return $this->phonenumber;
+    }
+
+    public function setPhonenumber(string $phonenumber): self
+    {
+        $this->phonenumber = $phonenumber;
+
+        return $this;
+    }
+
+    public function getPath(): ?string
+    {
+        return $this->path;
+    }
+
+    public function setPath(string $path): self
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    public function getSecondpath(): ?string
+    {
+        return $this->secondpath;
+    }
+
+    public function setSecondpath(string $secondpath): self
+    {
+        $this->secondpath = $secondpath;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Resume[]
+     */
+    public function getResumes(): Collection
+    {
+        return $this->resumes;
+    }
+
+    public function addResume(Resume $resume): self
+    {
+        if (!$this->resumes->contains($resume)) {
+            $this->resumes[] = $resume;
+            $resume->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeResume(Resume $resume): self
+    {
+        if ($this->resumes->removeElement($resume)) {
+            // set the owning side to null (unless already changed)
+            if ($resume->getUser() === $this) {
+                $resume->setUser(null);
             }
         }
 

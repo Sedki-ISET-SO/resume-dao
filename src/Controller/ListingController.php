@@ -34,15 +34,6 @@ class ListingController extends AbstractController
     }
     
     /**
-     * @Route("/home/rules", methods={"GET"}, name="rules")
-     */
-    public function rules(): Response
-    {
-        return $this->render('home/rules.html.twig', [
-        ]);
-    }
-
-    /**
      * @Route("/candidate/resume/new", methods={"GET"}, name="newResumeIndex")
      */
     public function newResumeIndex(): Response

@@ -27,6 +27,8 @@ class RegistrationController extends AbstractController
             $user->setCompanyname('');
             $user->setRoles(['ROLE_CANDIDATE']);
             $user->setValid(false);
+            $user->setPath('');
+            $user->setSecondpath('');
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(
@@ -62,6 +64,8 @@ class RegistrationController extends AbstractController
             $user->setLastname('');
             $user->setRoles(['ROLE_COMPANY']);
             $user->setValid(false);
+            $user->setPath('');
+            $user->setSecondpath('');
             // encode the plain password
             $user->setPassword(
                 $passwordEncoder->encodePassword(

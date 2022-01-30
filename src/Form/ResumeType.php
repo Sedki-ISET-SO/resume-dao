@@ -46,7 +46,8 @@ class ResumeType extends AbstractType
         ])
         ->add('enregistrer', SubmitType::class, [
             "attr" => ["class" => "bg-danger text-white"],
-            'row_attr' => ['class' => 'text-center']
+            'row_attr' => ['class' => 'text-center'],
+            "label" => "Save",
         ])
         ;
     }

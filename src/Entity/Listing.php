@@ -66,11 +66,6 @@ class Listing
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ListingCategory::class, inversedBy="listings")
-     */
-    private $listingCategory;
-
-    /**
      * @ORM\OneToMany(targetEntity=ListingAmenity::class, mappedBy="listing", orphanRemoval=true)
      */
     private $listingAmenities;
@@ -209,18 +204,6 @@ class Listing
     public function setUser(?User $user): self
     {
         $this->user = $user;
-
-        return $this;
-    }
-
-    public function getListingCategory(): ?ListingCategory
-    {
-        return $this->listingCategory;
-    }
-
-    public function setListingCategory(?ListingCategory $listingCategory): self
-    {
-        $this->listingCategory = $listingCategory;
 
         return $this;
     }

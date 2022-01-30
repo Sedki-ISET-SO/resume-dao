@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<h1>Your Newest Resume || <button type="button" class="btn btn-dark">
+			<a style="color: white; text-decoration: none;" href="{{ path('resumeUpdate')}}">Update</a>
+		</button>
+	</h1>
+	<br/>
+	<br/>
+	<div class="d-flex justify-content-center">
+		{% if app.user.path|trim is not empty %}
+			<iframe src="{{ app.user.path }}" width="600" height="600"></iframe>
+		{% else %}
+			<iframe src="{{ app.user.secondpath }}" width="600" height="600"></iframe>
+		{% endif %}
+	</div>
+{% endblock %}
