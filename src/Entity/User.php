@@ -100,6 +100,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $resumes;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $saved = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity=SavedResume::class, mappedBy="user")
+     */
+    private $saves;
+
     public function __construct()
     {
         $this->listings = new ArrayCollection();
@@ -108,6 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->files = new ArrayCollection();
         $this->pDFs = new ArrayCollection();
         $this->resumes = new ArrayCollection();
+        $this->saves = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -427,6 +438,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($resume->getUser() === $this) {
                 $resume->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getSaved(): ?array
+    {
+        return $this->saved;
+    }
+
+    public function setSaved(?array $saved): self
+    {
+        $this->saved = $saved;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SavedResume[]
+     */
+    public function getSaves(): Collection
+    {
+        return $this->saves;
+    }
+
+    public function addSave(SavedResume $save): self
+    {
+        if (!$this->saves->contains($save)) {
+            $this->saves[] = $save;
+            $save->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSave(SavedResume $save): self
+    {
+        if ($this->saves->removeElement($save)) {
+            // set the owning side to null (unless already changed)
+            if ($save->getUser() === $this) {
+                $save->setUser(null);
             }
         }
 

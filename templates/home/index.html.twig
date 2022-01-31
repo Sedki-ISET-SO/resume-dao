@@ -2,19 +2,45 @@
 
 {% block title %}{% endblock %}
 {% block body %}
-    <h2>Shared Resumes By Other Users</h2>
-    {% for listing in listings %}
-        <div class="card my-3">
-            <div class="card-header">
-                Published on : {{listing.published|date('d/m/Y')}} at {{listing.published|date('H:i')}}
-                By : {{listing.user.firstname ~ " " ~ listing.user.lastname}}
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{listing.price}}</h5>
-                <p class="card-text">{{listing.description}}</p>
-                <a href="{{ path('single', {id: listing.id}) }}" class="btn btn-dark text-white">See more</a>
-                <button type="button" class="btn btn-dark">Book</button>
-            </div>
-        </div>
-    {% endfor %}
+	<h2>Shared Resumes By Other Users</h2>
+	{% for path in paths %}
+		<div class="card my-3">
+			<br/>
+			<br/>
+			{% if path.path|trim is not empty %}
+                {% if is_granted('ROLE_COMPANY') %}
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-warning">
+                            <a style="color: white; text-decoration: none;" href="{{ path('save', {path: path.path|trim}) }}">Save</a>
+                        </button>
+                    </div>
+                {% endif %}
+
+                <br />
+                <br />
+				<div class="d-flex justify-content-center">
+					<iframe src="{{ path.path }}" width="600" height="600"></iframe>
+				</div>
+			{% endif %}
+		</div>
+		<div class="card my-3">
+			<br/>
+			<br/>
+			{% if path.secondpath|trim is not empty %}
+                {% if is_granted('ROLE_COMPANY') %}
+                    <div class="d-flex justify-content-center">
+                        <button class="btn btn-warning">
+                            <a style="color: white; text-decoration: none;" href="{{ path('save', {path: path.secondpath|trim}) }}">Save</a>
+                        </button>
+                    </div>
+                {% endif %}
+                <br />
+                <br />
+				<div class="d-flex justify-content-center">
+					<iframe src="{{ path.secondpath }}" width="600" height="600"></iframe>
+				</div>
+			{% endif %}
+		</div>
+	{% endfor %}
+
 {% endblock %}

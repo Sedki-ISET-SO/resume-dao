@@ -47,6 +47,7 @@ class ListingRepository extends ServiceEntityRepository
         ;
     }
 
+   
     /*
     public function findOneBySomeField($value): ?Subject
     {

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Listing;
 use App\Entity\ListingCategory;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,20 @@ class HomeController extends AbstractController
         
         return $this->render('home/index.html.twig', [
             'listings' => $listings,
+        ]);
+    }
+
+    /**
+     * @Route("/home", methods={"GET"}, name="home")
+     * @Route("/", methods={"GET"}, name="index")
+     */
+    public function showResumes(): Response
+    {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+        $paths = $repo->findAllPaths();
+        
+        return $this->render('home/index.html.twig', [
+            'paths' => $paths,
         ]);
     }
 }

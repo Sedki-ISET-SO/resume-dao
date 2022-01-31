@@ -95,12 +95,14 @@ class CandidateHomeController extends AbstractController
         // In this case, we want to write the file in the public directory
         $publicDirectory = $this->getParameter('kernel.project_dir') . '/public/resumes';
         // e.g /var/www/project/public/mypdf.pdf
-        $pdfFilepath =  $publicDirectory . '/resume.pdf';
+        $filename='resume'.time().'_'.$lastId.'.pdf';
+
+        $pdfFilepath =  $publicDirectory . '/' . $filename;
         
         $user = $this->getUser();
         $secondPath = $user->getSecondpath();
         if(strlen($secondPath) < 1) {
-            $user->setPath('/resumes/resume.pdf');
+            $user->setPath('/resumes' . '/' . $filename);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();

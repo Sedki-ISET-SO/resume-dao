@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+<h2>Your Saved Resumes</h2>
+
+{% for path in paths %}
+		<div class="card my-3">
+			<br/>
+			<br/>
+			{% if path.path is not empty %}
+				<div class="d-flex justify-content-center">
+					<iframe src="{{ path.path }}" width="600" height="600"></iframe>
+				</div>
+			{% endif %}
+		</div>
+	{% endfor %}
+
+{% endblock %}
